@@ -1,0 +1,12 @@
+{
+  "appId": "com.robson.apeclimb",
+  "appName": "Ape Climb",
+  "webDir": "www",
+  "backgroundColor": "#0a0a1a",
+  "android": {
+    "backgroundColor": "#0a0a1a"
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

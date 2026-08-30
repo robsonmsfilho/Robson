@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0a0a1a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ape Climb">
+<meta name="description" content="Jogo de plataforma retro estilo arcade classico: desvie de barris, suba escadas e resgate a garota do gorila gigante no topo da construcao.">
+<title>Ape Climb</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="wrap">
+  <canvas id="screen" width="432" height="768"></canvas>
+
+  <div id="menu" class="overlay show">
+    <div class="panel">
+      <h1>APE CLIMB</h1>
+      <p class="tag">Fuja dos barris. Suba a construcao. Resgate a garota.</p>
+      <button id="btnPlay" class="primary">Jogar</button>
+      <button id="btnHow">Como Jogar</button>
+      <button id="btnCredits">Creditos</button>
+    </div>
+  </div>
+
+  <div id="howto" class="overlay">
+    <div class="panel">
+      <h2>Como Jogar</h2>
+      <p>Use as setas ou o D-pad na tela para mover. Suba e desça escadas com cima/baixo. Pule com o botao de salto ou barra de espaco.</p>
+      <p>Desvie dos barris ou pule por cima deles. Pegue o martelo para destruir barris e chamas por alguns segundos, mas enquanto ele estiver ativo voce nao pode pular.</p>
+      <p>Complete cada fase chegando ate a garota ou removendo todos os rebites. Depois de todas as fases, o ciclo recomeca mais dificil.</p>
+      <button class="back">Voltar</button>
+    </div>
+  </div>
+
+  <div id="credits" class="overlay">
+    <div class="panel">
+      <h2>Creditos</h2>
+      <p>Jogo em HTML5 Canvas, inspirado nos classicos arcades de plataforma dos anos 80 com gorila, barris e escadas.</p>
+      <p>Codigo, graficos e sons gerados de forma programatica para este projeto.</p>
+      <button class="back">Voltar</button>
+    </div>
+  </div>
+
+  <div id="gameover" class="overlay">
+    <div class="panel">
+      <h2>FIM DE JOGO</h2>
+      <p id="finalScore">Pontuacao: 0</p>
+      <button id="btnAgain" class="primary">Jogar Novamente</button>
+      <button id="btnMenu">Menu</button>
+    </div>
+  </div>
+
+  <div id="hud">
+    <div class="hudRow">
+      <span id="hudScore">PONTOS 000000</span>
+      <span id="hudLives">VIDAS 3</span>
+    </div>
+    <div class="hudRow">
+      <span id="hudStage">FASE 1</span>
+      <span id="hudLoop">CICLO 1</span>
+    </div>
+  </div>
+
+  <button id="btnPause" aria-label="Pausar">II</button>
+
+  <div id="touch">
+    <div class="pad" id="dpad">
+      <button data-key="up" class="dp dp-up">^</button>
+      <button data-key="down" class="dp dp-down">v</button>
+      <button data-key="left" class="dp dp-left">&lt;</button>
+      <button data-key="right" class="dp dp-right">&gt;</button>
+    </div>
+    <button data-key="jump" id="btnJump">SALTO</button>
+  </div>
+</div>
+<script src="game.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('service-worker.js').catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
