@@ -16,6 +16,10 @@ const TAU = Math.PI * 2;
 const rand = (a, b) => a + Math.random() * (b - a);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (_) {} },
+};
 const angDiff = (a, b) => { let d = (b - a) % TAU; if (d > Math.PI) d -= TAU; if (d < -Math.PI) d += TAU; return d; };
 
 function resize() {
@@ -36,7 +40,7 @@ function resize() {
 
 // ── Audio ────────────────────────────────────────────────────
 let actx = null, noiseBuf = null;
-let soundOn = localStorage.getItem('starswarm.sound') !== 'off';
+let soundOn = store.get('starswarm.sound') !== 'off';
 
 function ensureAudio() {
   if (!actx) {
@@ -234,7 +238,7 @@ const stars = Array.from({ length: 90 }, () => ({
 // ── State ────────────────────────────────────────────────────
 const game = {
   state: 'title', stage: 0, score: 0, lives: 2, frame: 0, timer: 0,
-  hi: +localStorage.getItem('starswarm.hi') || 0,
+  hi: +store.get('starswarm.hi') || 0,
   challenge: false, hits: 0, shots: 0, kills: 0, chHits: 0, nextLife: 20000,
   paused: false, spawnTimer: 0, waveIdx: 0, waves: [], diveTimer: 0,
   banner: '', bannerTimer: 0, overTimer: 0, starSpeed: 1,
@@ -397,7 +401,7 @@ function addScore(n) {
   }
   if (game.score > game.hi) {
     game.hi = game.score;
-    localStorage.setItem('starswarm.hi', game.hi);
+    store.set('starswarm.hi', game.hi);
   }
 }
 
@@ -405,7 +409,7 @@ function popup(x, y, text, color = '#fff', life = 50) { popups.push({ x, y, text
 
 function gameOver() {
   game.state = 'over';
-  localStorage.setItem('starswarm.hi', game.hi);
+  store.set('starswarm.hi', game.hi);
   $('overScore').textContent = 'PONTOS ' + game.score;
   const acc = game.shots ? Math.round(game.hits / game.shots * 100) : 0;
   $('overStats').textContent = `FASE ${game.stage} · ABATES ${game.kills} · PRECISÃO ${acc}%`;
@@ -999,7 +1003,7 @@ $('btnHow').onclick = () => showOverlay('howto');
 for (const b of document.querySelectorAll('.back')) b.onclick = () => showOverlay('title');
 $('btnSound').onclick = () => {
   soundOn = !soundOn;
-  localStorage.setItem('starswarm.sound', soundOn ? 'on' : 'off');
+  store.set('starswarm.sound', soundOn ? 'on' : 'off');
   refreshSoundBtn(); ensureAudio(); sfx.shoot();
 };
 $('btnPause').onclick = () => setPaused(true);
@@ -1007,7 +1011,7 @@ $('btnResume').onclick = () => setPaused(false);
 const toTitle = () => {
   game.state = 'title'; game.paused = false;
   enemies = []; pBullets = []; eBullets = []; particles = []; popups = []; rescue = null;
-  localStorage.setItem('starswarm.hi', game.hi);
+  store.set('starswarm.hi', game.hi);
   $('titleHi').textContent = game.hi;
   $('btnPause').classList.remove('show');
   showOverlay('title');
