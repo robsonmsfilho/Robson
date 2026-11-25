@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#05060f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Star Swarm">
+<meta name="description" content="Shooter espacial retro estilo arcade: destrua o enxame alienígena, escape do raio trator e resgate sua nave para atirar em dobro.">
+<title>Star Swarm</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="wrap">
+  <canvas id="screen"></canvas>
+
+  <button id="btnPause" class="hud-btn" aria-label="Pausar">II</button>
+
+  <div id="title" class="overlay show">
+    <div class="panel">
+      <h1>STAR<br>SWARM</h1>
+      <p class="tag">Destrua o enxame. Cuidado com o raio trator.<br>Resgate sua nave capturada para atirar em dobro!</p>
+      <p class="hi">RECORDE <span id="titleHi">0</span></p>
+      <button id="btnPlay" class="primary">Jogar</button>
+      <button id="btnHow">Como Jogar</button>
+      <button id="btnSound">Som: Ligado</button>
+    </div>
+  </div>
+
+  <div id="howto" class="overlay">
+    <div class="panel">
+      <h2>Como Jogar</h2>
+      <p><b>Celular:</b> arraste o dedo em qualquer lugar da tela para mover a nave. Enquanto o dedo estiver na tela, ela atira sozinha.</p>
+      <p><b>Teclado:</b> setas ou A/D para mover, espaço para atirar, P para pausar.</p>
+      <p>Os comandantes verdes precisam de dois tiros. Às vezes eles descem e lançam um <b>raio trator</b>: se ele te pegar, sua nave é capturada.</p>
+      <p>Abata o comandante enquanto ele mergulha para <b>resgatar</b> a nave e controlar duas ao mesmo tempo.</p>
+      <p>A cada quatro fases há uma <b>fase bônus</b>: os inimigos não atiram, acerte o máximo que puder.</p>
+      <button class="back">Voltar</button>
+    </div>
+  </div>
+
+  <div id="pause" class="overlay">
+    <div class="panel">
+      <h2>PAUSA</h2>
+      <button id="btnResume" class="primary">Continuar</button>
+      <button id="btnQuit">Sair</button>
+    </div>
+  </div>
+
+  <div id="over" class="overlay">
+    <div class="panel">
+      <h2>FIM DE JOGO</h2>
+      <p id="overScore">PONTOS 0</p>
+      <p id="overStats"></p>
+      <p class="hi">RECORDE <span id="overHi">0</span></p>
+      <button id="btnAgain" class="primary">Jogar Novamente</button>
+      <button id="btnMenu">Menu</button>
+    </div>
+  </div>
+</div>
+<script src="game.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('service-worker.js').catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
