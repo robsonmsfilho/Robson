@@ -440,7 +440,7 @@ document.addEventListener('pointermove', e => {
 const endPointer = e => { if (e.pointerId === input.id) { input.active = false; input.id = null; } };
 document.addEventListener('pointerup', endPointer);
 document.addEventListener('pointercancel', endPointer);
-document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+document.addEventListener('touchmove', e => { if (!e.target.closest('.panel')) e.preventDefault(); }, { passive: false });
 document.addEventListener('contextmenu', e => e.preventDefault());
 
 const KEYMAP = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', Space: 'fire', ArrowUp: 'fire', KeyW: 'fire' };
