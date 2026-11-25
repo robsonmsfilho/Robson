@@ -375,6 +375,7 @@ function nextStage() {
   game.chHits = 0;
   game.waves = game.challenge ? challengeWaves(game.stage) : normalWaves(game.stage);
   game.waveIdx = 0;
+  eBullets = [];
   game.spawnTimer = 150;
   game.diveTimer = 200;
   game.state = 'play';
