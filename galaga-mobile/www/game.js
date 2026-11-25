@@ -391,6 +391,7 @@ function addScore(n) {
     game.lives++;
     game.nextLife += game.nextLife === 20000 ? 50000 : 70000;
     sfx.life();
+    if (game.overTimer > 0) { game.overTimer = 0; banner('PRONTO', 150); }
     popup(W / 2, H / 2 + 40, 'VIDA EXTRA!', '#3bff7a', 90);
   }
   if (game.score > game.hi) {
