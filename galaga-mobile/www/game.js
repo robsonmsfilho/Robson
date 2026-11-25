@@ -401,15 +401,20 @@ function addScore(n) {
   }
   if (game.score > game.hi) {
     game.hi = game.score;
-    store.set('starswarm.hi', game.hi);
+    saveHi();
   }
+}
+
+function saveHi() {
+  game.hi = Math.max(game.hi, +store.get('starswarm.hi') || 0);
+  store.set('starswarm.hi', game.hi);
 }
 
 function popup(x, y, text, color = '#fff', life = 50) { popups.push({ x, y, text, color, life, max: life }); }
 
 function gameOver() {
   game.state = 'over';
-  store.set('starswarm.hi', game.hi);
+  saveHi();
   $('overScore').textContent = 'PONTOS ' + game.score;
   const acc = game.shots ? Math.round(game.hits / game.shots * 100) : 0;
   $('overStats').textContent = `FASE ${game.stage} · ABATES ${game.kills} · PRECISÃO ${acc}%`;
@@ -1011,7 +1016,7 @@ $('btnResume').onclick = () => setPaused(false);
 const toTitle = () => {
   game.state = 'title'; game.paused = false;
   enemies = []; pBullets = []; eBullets = []; particles = []; popups = []; rescue = null;
-  store.set('starswarm.hi', game.hi);
+  saveHi();
   $('titleHi').textContent = game.hi;
   $('btnPause').classList.remove('show');
   showOverlay('title');
