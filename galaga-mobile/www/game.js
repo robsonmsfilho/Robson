@@ -393,7 +393,10 @@ function addScore(n) {
     sfx.life();
     popup(W / 2, H / 2 + 40, 'VIDA EXTRA!', '#3bff7a', 90);
   }
-  if (game.score > game.hi) game.hi = game.score;
+  if (game.score > game.hi) {
+    game.hi = game.score;
+    localStorage.setItem('starswarm.hi', game.hi);
+  }
 }
 
 function popup(x, y, text, color = '#fff', life = 50) { popups.push({ x, y, text, color, life, max: life }); }
